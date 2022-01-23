@@ -1,0 +1,17 @@
+.login-layout-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-left: 100px;
+  padding-right: 100px;
+  height: 100vh;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title-green {
+      color: $theme-primary;
+    }
+  }
+}

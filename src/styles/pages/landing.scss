@@ -1,0 +1,40 @@
+.landing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  .left {
+    padding: 100px;
+    padding-top: 20px;
+    background: $theme-primary;
+    color: white;
+
+    .logo {
+      padding-bottom: 50px;
+      display: flex;
+      align-items: center;
+      font-size: 30px;
+
+      img {
+        width: 100px;
+      }
+    }
+
+    div {
+      &:nth-child(3) {
+        padding-top: 20px;
+      }
+    }
+
+    .button-wrapper {
+      padding-top: 50px;
+    }
+  }
+
+  .right {
+    display: flex;
+    justify-content: right;
+
+    img {
+    }
+  }
+}

@@ -1,0 +1,32 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Landing = () => {
+  return (
+    <div className="landing">
+      <div className="left">
+        <div className="logo">
+          <img src="logo.png" />
+          <span>BBVS</span>
+        </div>
+
+        <div className="title-large">Blockchain Based</div>
+        <div className="title-large">Voting System</div>
+        <div className="title-small">the future of voting</div>
+
+        <div className="button-wrapper">
+          <Link to="/login">
+            <button className="button-black">Login</button>
+          </Link>
+          <button>View Votes</button>
+        </div>
+      </div>
+
+      <div className="right">
+        <img src="vote.gif" />
+      </div>
+    </div>
+  );
+};
+
+export default Landing;

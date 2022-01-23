@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+$theme-black: #333333;
+$theme-primary: #4daaa7;
+$theme-secondary: #3f8f8b;
+
+body {
+  margin: 0;
+  font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 5px;
+  font-family: "Josefin Sans";
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 5px 5px rgba(50, 50, 50, 0.2);
+  }
+}
+
+.button-black {
+  background-color: $theme-black;
+  color: white;
+}
+.button-primary {
+  background-color: $theme-primary;
+}
+
+.button-secondary {
+  background-color: $theme-secondary;
+}
+
+.title-large {
+  font-size: 3.2rem;
+}
+
+.title-small {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+@import "../styles/pages/landing.scss";
+@import "../styles/pages/features.scss";
+@import "../styles/layouts/Login.scss";
