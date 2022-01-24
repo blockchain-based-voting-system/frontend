@@ -26,9 +26,10 @@ button {
   margin-right: 5px;
   font-family: "Josefin Sans";
   cursor: pointer;
+  transition: 0.3s;
 
   &:hover {
-    box-shadow: 0 5px 5px rgba(50, 50, 50, 0.2);
+    box-shadow: 2px 2px 3px lightgray;
   }
 }
 
@@ -53,6 +54,7 @@ button {
   font-weight: 300;
 }
 
-@import "../styles/pages/landing.scss";
-@import "../styles/pages/features.scss";
+@import "../styles/pages/Landing.scss";
+@import "../styles/pages/Features.scss";
+@import "../styles/pages/Login.scss";
 @import "../styles/layouts/Login.scss";

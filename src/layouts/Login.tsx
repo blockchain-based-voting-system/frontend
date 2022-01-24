@@ -12,7 +12,8 @@ const Login = (props: LayoutProps) => {
         <div className="title-large title-green">Voting System</div>
         <div className="title-small">the future of voting</div>
       </div>
-      {props.children}
+
+      <div className="right">{props.children}</div>
     </div>
   );
 };

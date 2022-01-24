@@ -14,4 +14,10 @@
       color: $theme-primary;
     }
   }
+
+  .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
