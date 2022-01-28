@@ -29,7 +29,7 @@ button {
   transition: 0.3s;
 
   &:hover {
-    box-shadow: 2px 2px 3px lightgray;
+    box-shadow: 2px 2px 3px rgba(50, 50, 50, 0.3);
   }
 }
 
@@ -58,3 +58,4 @@ button {
 @import "../styles/pages/Features.scss";
 @import "../styles/pages/Login.scss";
 @import "../styles/layouts/Login.scss";
+@import "../styles/components/Features/FeatureTitle.scss";
