@@ -13,7 +13,7 @@ const Login = (props: RouteProps): JSX.Element => {
   return (
     <div>
       <LoginLayout>
-        <div className="login-container">
+        <div className="form-container">
           <Formik
             initialValues={{
               email: "",
@@ -24,21 +24,35 @@ const Login = (props: RouteProps): JSX.Element => {
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
-                <input id="email" type="email" {...getFieldProps("email")} />
-                <div className="form-error-text">
-                  {touched.email && errors.email ? errors.email : null}
+                <div className="input-container">
+                  <input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    {...getFieldProps("email")}
+                  />
+                  <div className="form-error-text">
+                    {touched.email && errors.email ? errors.email : null}
+                  </div>
                 </div>
 
-                <input
-                  id="password"
-                  type="password"
-                  {...getFieldProps("password")}
-                />
-                <div className="form-error-text">
-                  {touched.password && errors.password ? errors.password : null}
+                <div className="input-container">
+                  <input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    {...getFieldProps("password")}
+                  />
+                  <div className="form-error-text">
+                    {touched.password && errors.password
+                      ? errors.password
+                      : null}
+                  </div>
                 </div>
 
-                <button type="submit">Login</button>
+                <button className="login-button button-primary" type="submit">
+                  Login
+                </button>
               </form>
             )}
           </Formik>
