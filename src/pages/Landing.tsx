@@ -7,7 +7,6 @@ const Landing = () => {
       <div className="left">
         <div className="logo">
           <img src="logo.png" />
-          <span>BBVS</span>
         </div>
 
         <div className="title-large">Blockchain Based</div>

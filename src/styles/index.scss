@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 $theme-black: #333333;
 $theme-primary: #4daaa7;
@@ -6,9 +7,8 @@ $theme-secondary: #3f8f8b;
 
 body {
   margin: 0;
-  font-family: "Josefin Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  // font-family: "Inter", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,7 +24,6 @@ button {
   border-radius: 5px;
   padding: 10px;
   margin-right: 5px;
-  font-family: "Josefin Sans";
   cursor: pointer;
   transition: 0.3s;
 
@@ -45,12 +44,19 @@ button {
   background-color: $theme-secondary;
 }
 
+button,
+.title-large,
+.title-small {
+  text-transform: uppercase;
+}
+
 .title-large {
-  font-size: 3.2rem;
+  font-size: 2.8rem;
+  font-weight: 900;
 }
 
 .title-small {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 300;
 }
 
