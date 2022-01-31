@@ -1,7 +1,6 @@
 import React from "react";
 import Feature from "../components/Features/Feature";
 import { MdGppGood, MdLibraryAddCheck, MdLock, MdShare } from "react-icons/md";
-import FeatureTitle from "../components/Features/FeatureTitle";
 
 const Features = () => {
   return (
@@ -13,15 +12,7 @@ const Features = () => {
 
       <div className="mobile-wrapper">
         <div>
-          <Feature
-            title={
-              <FeatureTitle
-                title="Immutability"
-                icon={<MdLock />}
-                align="right"
-              />
-            }
-          >
+          <Feature title="Immutability" icon={<MdLock />} align="right">
             <p>
               Immutability means something that can’t be changed or altered.
               This is one of the top blockchain features that help to ensure
@@ -36,15 +27,17 @@ const Features = () => {
         </div>
 
         <div>
-          <Feature
-            title={
-              <FeatureTitle
-                title="Enhanced Security"
-                icon={<MdGppGood />}
-                align="left"
-              />
-            }
-          >
+          <Feature title="Enhanced Security" icon={<MdGppGood />} align="left">
+            <p>
+              Immutability means something that can’t be changed or altered.
+              This is one of the top blockchain features that help to ensure
+              that the technology will remain as it is, a permanent, unalterable
+              network.
+            </p>
+          </Feature>
+        </div>
+        <div>
+          <Feature title="Decentralized" icon={<MdShare />} align="right">
             <p>
               Immutability means something that can’t be changed or altered.
               This is one of the top blockchain features that help to ensure
@@ -55,31 +48,9 @@ const Features = () => {
         </div>
         <div>
           <Feature
-            title={
-              <FeatureTitle
-                title="Decentralized"
-                icon={<MdShare />}
-                align="right"
-              />
-            }
-          >
-            <p>
-              Immutability means something that can’t be changed or altered.
-              This is one of the top blockchain features that help to ensure
-              that the technology will remain as it is, a permanent, unalterable
-              network.
-            </p>
-          </Feature>
-        </div>
-        <div>
-          <Feature
-            title={
-              <FeatureTitle
-                title="Distributed Ledger"
-                icon={<MdLibraryAddCheck />}
-                align="left"
-              />
-            }
+            title="Distributed Ledger"
+            icon={<MdLibraryAddCheck />}
+            align="left"
           >
             <p>
               Immutability means something that can’t be changed or altered.

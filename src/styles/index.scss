@@ -54,8 +54,12 @@ button {
   font-weight: 300;
 }
 
+.text-normal {
+  font-weight: 300;
+}
+
 @import "../styles/pages/Landing.scss";
 @import "../styles/pages/Features.scss";
 @import "../styles/pages/Login.scss";
 @import "../styles/layouts/Login.scss";
-@import "../styles/components/Features/FeatureTitle.scss";
+@import "../styles/components/Features/Feature.scss";

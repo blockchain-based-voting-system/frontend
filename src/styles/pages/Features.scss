@@ -1,15 +1,22 @@
 .features-wrapper {
-  padding-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 100px;
+  padding-left: 50px;
+  padding-right: 50px;
 
   .mobile-wrapper {
-    width: 98.9vw;
-    padding-top: 50px;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    padding-top: 50px;
+
+    & > div {
+      display: flex;
+      align-items: center;
+    }
 
     .mobile-container {
       grid-row: 1/3;
