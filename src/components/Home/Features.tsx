@@ -1,5 +1,5 @@
 import React from "react";
-import Feature from "../components/Features/Feature";
+import Feature from "../Features/Feature";
 import { MdGppGood, MdLibraryAddCheck, MdLock, MdShare } from "react-icons/md";
 
 const Features = () => {

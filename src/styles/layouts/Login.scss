@@ -61,6 +61,19 @@
       button {
         width: 100%;
       }
+
+      hr {
+        margin: 30px;
+        border: none;
+        outline: none;
+        border-top: 2px solid $theme-gray;
+      }
+
+      .form-info-text {
+        text-align: center;
+        color: $theme-primary;
+        margin: 30px;
+      }
     }
 
     .form-error-text {

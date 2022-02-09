@@ -12,7 +12,7 @@ const Login = (props: LayoutProps) => {
   return (
     <div className="login-layout-wrapper">
       <div className="left">
-        <div onClick={() => navigate(-1)} className="back title-small">
+        <div onClick={() => navigate("/")} className="back title-small">
           <span className="icon">
             <IoIosArrowBack />
           </span>

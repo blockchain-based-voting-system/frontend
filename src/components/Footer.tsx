@@ -3,12 +3,8 @@ import React from "react";
 const Footer = () => {
   return (
     <footer
-      style={{
-        textTransform: "uppercase",
-        textAlign: "center",
-        paddingTop: 100,
-        paddingBottom: 100,
-      }}
+      style={{ padding: 100, textAlign: "center" }}
+      className="title-small"
     >
       <div>Copyright © 2022 BBVS. All rights reserved.</div>
     </footer>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import { RouteProps } from "react-router";
 import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
+import axios from "../axios";
+import { AuthContext } from "../contexts/Auth";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -10,6 +13,9 @@ const schema = Yup.object().shape({
 });
 
 const Login = (props: RouteProps): JSX.Element => {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
   return (
     <div>
       <LoginLayout>
@@ -20,7 +26,14 @@ const Login = (props: RouteProps): JSX.Element => {
               password: "",
             }}
             validationSchema={schema}
-            onSubmit={(values) => console.log({ values })}
+            onSubmit={(values) => {
+              axios
+                .post("/auth/login", { ...values })
+                .then((res) => {
+                  authContext.authenticate(res.data.user, res.data.accessToken);
+                })
+                .catch((error) => console.log({ error }));
+            }}
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
@@ -56,6 +69,17 @@ const Login = (props: RouteProps): JSX.Element => {
               </form>
             )}
           </Formik>
+
+          <div className="form-info-text">Forgot Password?</div>
+
+          <hr />
+
+          <button
+            onClick={() => navigate("/signup")}
+            className="button-secondary"
+          >
+            Create a New Account
+          </button>
         </div>
       </LoginLayout>
     </div>
