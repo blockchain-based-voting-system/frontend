@@ -7,6 +7,7 @@ import { AuthContext } from "../contexts/Auth";
 import UserPage from "../pages/User/User";
 import AdminPage from "../pages/Admin/Admin";
 import ProfilePage from "../pages/User/Profile";
+import Default from "../layouts/Default";
 
 export default () => {
   const authContext = useContext(AuthContext);
@@ -17,21 +18,35 @@ export default () => {
     if (authContext.authenticated) {
       // if the user is authenticated then
 
+      const adminMenu = [
+        { name: "Create", link: "/" },
+        { name: "Profile", link: "/profile" },
+      ];
+
+      const userMenu = [
+        { name: "Polls", link: "/" },
+        { name: "Profile", link: "/profile" },
+      ];
+
       if (authContext.isAdmin) {
         // if the user is admin
         return (
-          <Routes>
-            <Route path="/" element={<AdminPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
+          <Default menu={adminMenu}>
+            <Routes>
+              <Route path="/" element={<AdminPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </Routes>
+          </Default>
         );
       } else {
         //  if the user in not admin
         return (
-          <Routes>
-            <Route path="/" element={<UserPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
+          <Default menu={userMenu}>
+            <Routes>
+              <Route path="/" element={<UserPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+            </Routes>
+          </Default>
         );
       }
     } else {

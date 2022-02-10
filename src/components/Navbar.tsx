@@ -13,7 +13,7 @@ const NavbarContainer = (props: NavbarContainerProps) => {
     <nav>
       <span>LOGO</span>
       {props.children}
-      <span onClick={() => navigate("/profile")}>p</span>
+      <span onClick={() => navigate("/profile")}>profile</span>
     </nav>
   );
 };
