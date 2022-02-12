@@ -18,6 +18,22 @@ const Default = (props: DefaultProps) => {
 
   useEffect(() => {
     document.getElementById("default-sidebar")?.classList.add("hide");
+
+    const hideIfOutside = (e: any) => {
+      const sidebar = document.getElementById("default-sidebar");
+      const outsideHam = document.getElementById("outside-ham");
+
+      if (!sidebar?.contains(e.target) && !outsideHam?.contains(e.target)) {
+        if (!sidebar?.classList.contains("hide"))
+          sidebar?.classList.add("hide");
+      }
+    };
+
+    window.addEventListener("click", hideIfOutside);
+
+    return () => {
+      window.removeEventListener("click", hideIfOutside);
+    };
   }, []);
 
   const toggleHandler = () => {
@@ -27,7 +43,7 @@ const Default = (props: DefaultProps) => {
   return (
     <div className="default-container">
       <div className="default-sidebar-container">
-        <div onClick={toggleHandler} className="hamburger">
+        <div onClick={toggleHandler} id="outside-ham" className="hamburger">
           <i className="bi bi-list"></i>
         </div>
 

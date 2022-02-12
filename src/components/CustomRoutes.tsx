@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import { AuthContext } from "../contexts/Auth";
 import UserPage from "../pages/User/User";
-import AdminPage from "../pages/Admin/Admin";
+import CreatePage from "../pages/Admin/Create";
 import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
 
@@ -33,7 +33,7 @@ export default () => {
         return (
           <Default menu={adminMenu}>
             <Routes>
-              <Route path="/" element={<AdminPage />} />
+              <Route path="/" element={<CreatePage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>
