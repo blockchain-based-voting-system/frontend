@@ -1,0 +1,15 @@
+.polls-wrapper {
+  .poll-wrapper {
+    min-width: 400px;
+    padding: 20px;
+    margin: 20px;
+    background-color: $theme-gray;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

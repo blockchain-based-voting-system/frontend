@@ -18,14 +18,17 @@ const Default = (props: DefaultProps) => {
 
   useEffect(() => {
     document.getElementById("default-sidebar")?.classList.add("hide");
+    document.getElementById("default-sidebar")?.classList.remove("display");
 
     const hideIfOutside = (e: any) => {
       const sidebar = document.getElementById("default-sidebar");
       const outsideHam = document.getElementById("outside-ham");
 
       if (!sidebar?.contains(e.target) && !outsideHam?.contains(e.target)) {
-        if (!sidebar?.classList.contains("hide"))
+        if (!sidebar?.classList.contains("hide")) {
           sidebar?.classList.add("hide");
+          sidebar?.classList.remove("display");
+        }
       }
     };
 
@@ -38,6 +41,7 @@ const Default = (props: DefaultProps) => {
 
   const toggleHandler = () => {
     document.getElementById("default-sidebar")?.classList.toggle("hide");
+    document.getElementById("default-sidebar")?.classList.toggle("display");
   };
 
   return (

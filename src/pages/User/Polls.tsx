@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { RouteProps } from "react-router";
 import axios from "../../axios";
 import PollsLayout from "../../layouts/Polls";
 
-const Polls = () => {
+const User = (props: RouteProps) => {
   const [polls, setPolls] = useState();
 
   useEffect(() => {
@@ -12,4 +13,4 @@ const Polls = () => {
   return <>{polls ? <PollsLayout polls={polls} /> : null}</>;
 };
 
-export default Polls;
+export default User;
