@@ -8,6 +8,7 @@ import UserPage from "../pages/User/User";
 import CreatePage from "../pages/Admin/Create";
 import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
+import AdminPollsPage from "../pages/Admin/Polls";
 
 export default () => {
   const authContext = useContext(AuthContext);
@@ -20,6 +21,7 @@ export default () => {
 
       const adminMenu = [
         { name: "Create", link: "/" },
+        { name: "Polls", link: "/polls" },
         { name: "Profile", link: "/profile" },
       ];
 
@@ -34,6 +36,7 @@ export default () => {
           <Default menu={adminMenu}>
             <Routes>
               <Route path="/" element={<CreatePage />} />
+              <Route path="/polls" element={<AdminPollsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>

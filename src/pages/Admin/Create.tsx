@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { RouteProps } from "react-router";
 import { Formik } from "formik";
+import axios from "../../axios";
 
 const Admin = (props: RouteProps) => {
   const [candidates, setCandidates] = useState<Array<string>>([]);
@@ -14,8 +15,14 @@ const Admin = (props: RouteProps) => {
         initialValues={{
           name: "",
         }}
-        onSubmit={(values) => {
-          console.log({ values, candidates });
+        onSubmit={({ name }, { resetForm }) => {
+          axios
+            .post("/polls/create", { name, candidates })
+            .then((res) => {
+              resetForm();
+              console.log(res.data);
+            })
+            .catch((error) => console.log({ error }));
         }}
       >
         {({ errors, touched, getFieldProps, handleChange, handleSubmit }) => (
