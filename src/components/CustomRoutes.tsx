@@ -5,10 +5,14 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import { AuthContext } from "../contexts/Auth";
 import UserPollsPage from "../pages/User/Polls";
+import UserPollPage from "../pages/User/Poll";
 import CreatePage from "../pages/Admin/Create";
 import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
 import AdminPollsPage from "../pages/Admin/Polls";
+import AdminPollPage from "../pages/Admin/Poll";
+import AdminUsersPage from "../pages/Admin/Users";
+import AdminVerifyPage from "../pages/Admin/Verify";
 
 export default () => {
   const authContext = useContext(AuthContext);
@@ -22,6 +26,7 @@ export default () => {
       const adminMenu = [
         { name: "Create", link: "/" },
         { name: "Polls", link: "/polls" },
+        { name: "Verify Users", link: "/users" },
         { name: "Profile", link: "/profile" },
       ];
 
@@ -37,6 +42,9 @@ export default () => {
             <Routes>
               <Route path="/" element={<CreatePage />} />
               <Route path="/polls" element={<AdminPollsPage />} />
+              <Route path="/poll/:id" element={<AdminPollPage />} />
+              <Route path="/users" element={<AdminUsersPage />} />
+              <Route path="/verify/:name/:id" element={<AdminVerifyPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>
@@ -47,6 +55,7 @@ export default () => {
           <Default menu={userMenu}>
             <Routes>
               <Route path="/" element={<UserPollsPage />} />
+              <Route path="/poll/:id" element={<UserPollPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>

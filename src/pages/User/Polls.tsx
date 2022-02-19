@@ -10,7 +10,7 @@ const User = (props: RouteProps) => {
     axios.get("/polls/").then((res) => setPolls(res.data.polls));
   }, []);
 
-  return <>{polls ? <PollsLayout polls={polls} /> : null}</>;
+  return <>{polls ? <PollsLayout link="/poll/" polls={polls} /> : null}</>;
 };
 
 export default User;

@@ -1,0 +1,7 @@
+.users-wrapper {
+  @include boxes-wrapper;
+
+  .user-wrapper {
+    @include box-wrapper;
+  }
+}

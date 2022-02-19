@@ -4,12 +4,12 @@ import { Formik } from "formik";
 import { RouteProps } from "react-router";
 import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
-
-const phoneRegex = /^98\d{8}$/g;
+import axios from "../axios";
 
 const schema = Yup.object().shape({
+  name: Yup.string().min(3).required(),
   email: Yup.string().email("Invalid email").required("Required"),
-  phone: Yup.string().matches(phoneRegex, "invalid nepali number").required(),
+  citizenshipNumber: Yup.string().min(4).required(),
   password: Yup.string().min(3).required("Required"),
   confirm: Yup.string()
     .oneOf([Yup.ref("password")], "must be same as password")
@@ -25,27 +25,52 @@ const Signup = (props: RouteProps): JSX.Element => {
         <div className="form-container">
           <Formik
             initialValues={{
+              name: "",
               email: "",
-              phone: "",
+              citizenshipNumber: "",
               password: "",
               confirm: "",
             }}
             validationSchema={schema}
-            onSubmit={(values) => {
-              console.log(values);
+            onSubmit={({ name, email, citizenshipNumber, password }) => {
+              axios
+                .post("/auth/signup", {
+                  name,
+                  email,
+                  citizenshipNumber,
+                  password,
+                })
+                .then((res) => {
+                  console.log({ res });
+                })
+                .catch((error) => console.log({ error }));
             }}
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <div className="input-container">
                   <input
-                    id="phone"
+                    id="name"
                     type="text"
-                    placeholder="Phone Number"
-                    {...getFieldProps("phone")}
+                    placeholder="Name"
+                    {...getFieldProps("name")}
                   />
                   <div className="form-error-text">
-                    {touched.phone && errors.phone ? errors.phone : null}
+                    {touched.name && errors.name ? errors.name : null}
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <input
+                    id="citizenshipNumber"
+                    type="text"
+                    placeholder="Citizenship Number"
+                    {...getFieldProps("citizenshipNumber")}
+                  />
+                  <div className="form-error-text">
+                    {touched.citizenshipNumber && errors.citizenshipNumber
+                      ? errors.citizenshipNumber
+                      : null}
                   </div>
                 </div>
 
@@ -100,6 +125,7 @@ const Signup = (props: RouteProps): JSX.Element => {
           <button
             onClick={() => navigate("/login")}
             className="button-secondary"
+            type="button"
           >
             Login
           </button>

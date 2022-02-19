@@ -68,11 +68,15 @@ button,
   font-weight: 300;
 }
 
+@import "./layouts/Boxes.scss";
+
 @import "./form.scss";
 @import "./pages/Landing.scss";
 @import "./pages/Features.scss";
 @import "./pages/Admin/Create.scss";
 @import "./layouts/Login.scss";
 @import "./layouts/Default.scss";
+@import "./layouts/Users.scss";
 @import "./layouts/Polls.scss";
+@import "./layouts/Poll.scss";
 @import "./components/Features/Feature.scss";

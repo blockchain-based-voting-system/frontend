@@ -1,15 +1,15 @@
 .polls-wrapper {
-  .poll-wrapper {
-    min-width: 400px;
-    padding: 20px;
-    margin: 20px;
-    background-color: $theme-gray;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
+  @include boxes-wrapper;
 
-    &:hover {
-      transform: scale(1.1);
+  .poll-wrapper {
+    @include box-wrapper;
+
+    .candidates-wrapper {
+      @include inner-box-wrapper;
+
+      .candidate-name {
+        @include inner-box-name;
+      }
     }
   }
 }
