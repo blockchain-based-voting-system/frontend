@@ -3,13 +3,13 @@
 }
 
 @mixin box-wrapper {
+  @include box-shadow;
   min-width: 400px;
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
   cursor: pointer;
   transition: 0.3s;
-  box-shadow: 2px 2px 10px rgba(50, 50, 50, 0.1);
 
   &:hover {
     transform: scale(1.1);

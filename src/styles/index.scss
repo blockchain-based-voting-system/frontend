@@ -7,6 +7,10 @@ $theme-black: #333333;
 $theme-primary: #4daaa7;
 $theme-secondary: #3f8f8b;
 
+@mixin box-shadow {
+  box-shadow: 2px 2px 10px rgba(50, 50, 50, 0.1);
+}
+
 body,
 html {
   position: relative;
@@ -74,9 +78,10 @@ button,
 @import "./pages/Landing.scss";
 @import "./pages/Features.scss";
 @import "./pages/Admin/Create.scss";
+@import "./pages/Admin/Polls.scss";
 @import "./layouts/Login.scss";
 @import "./layouts/Default.scss";
 @import "./layouts/Users.scss";
 @import "./layouts/Polls.scss";
-@import "./layouts/Poll.scss";
 @import "./components/Features/Feature.scss";
+@import "./components/Polls/Chart.scss";

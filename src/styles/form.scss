@@ -1,9 +1,9 @@
 .form-container {
+  @include box-shadow;
   min-width: 400px;
   box-sizing: border-box;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: 2px 2px 10px rgba(50, 50, 50, 0.1);
 
   .input-container {
     padding-bottom: 20px;

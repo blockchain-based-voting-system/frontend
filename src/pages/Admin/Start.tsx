@@ -3,29 +3,38 @@ import { RouteProps } from "react-router";
 import { Formik } from "formik";
 import axios from "../../axios";
 
-const Admin = (props: RouteProps) => {
-  const [candidates, setCandidates] = useState<Array<string>>([]);
-  const [text, setText] = useState<string>("");
+interface Candidate {
+  name: string;
+  info: string;
+}
+
+const Start = () => {
+  const [candidates, setCandidates] = useState<Array<Candidate>>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
+  const [info, setInfo] = useState<string>("");
 
   const candidateField = useRef<HTMLInputElement>(null);
+  const candidateInfoField = useRef<HTMLInputElement>(null);
 
   return (
     <div className="form-container">
       <Formik
         initialValues={{
           name: "",
+          description: "",
         }}
-        onSubmit={({ name }, { resetForm }) => {
+        onSubmit={({ name, description }) => {
+          setLoading(true);
           axios
-            .post("/polls/create", { name, candidates })
-            .then((res) => {
-              resetForm();
-              console.log(res.data);
+            .post("/polls/start", { name, description, candidates })
+            .then((_) => {
+              window.location.reload();
             })
             .catch((error) => console.log({ error }));
         }}
       >
-        {({ errors, touched, getFieldProps, handleChange, handleSubmit }) => (
+        {({ errors, touched, getFieldProps, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input
@@ -40,15 +49,30 @@ const Admin = (props: RouteProps) => {
               </div>
             </div>
 
+            <div className="input-container">
+              <input
+                id="description"
+                type="text"
+                placeholder="Poll Description"
+                {...getFieldProps("description")}
+              />
+
+              <div className="form-error-text">
+                {touched.description && errors.description
+                  ? errors.description
+                  : null}
+              </div>
+            </div>
+
             {candidates.length !== 0 ? (
               <div className="candidates-container">
-                {candidates.map((candidate, index) => (
+                {candidates.map(({ name, info }, index) => (
                   <div key={index} className="candidate-wrapper">
-                    <span>{candidate}</span>
+                    <span>{name}</span>
                     <span
                       onClick={() => {
                         const newList = [...candidates];
-                        const i = newList.indexOf(candidate);
+                        const i = newList.indexOf({ name, info });
                         newList.splice(i, 1);
 
                         setCandidates(newList);
@@ -65,12 +89,11 @@ const Admin = (props: RouteProps) => {
             <div className="input-container">
               <div className="add-candidate-wrapper">
                 <input
-                  id="candidates"
                   type="text"
                   placeholder="Add Candidate"
                   ref={candidateField}
                   onChange={(e) => {
-                    setText(e.target.value);
+                    setName(e.target.value);
                   }}
                 />
 
@@ -78,10 +101,12 @@ const Admin = (props: RouteProps) => {
                   className=""
                   type="button"
                   onClick={() => {
-                    const newCandidate = text;
+                    const newCandidate = { name, info };
                     setCandidates([...candidates, newCandidate]);
                     if (candidateField.current)
                       candidateField.current.value = "";
+                    if (candidateInfoField.current)
+                      candidateInfoField.current.value = "";
                   }}
                 >
                   Add
@@ -89,8 +114,21 @@ const Admin = (props: RouteProps) => {
               </div>
             </div>
 
+            <div className="input-container">
+              <div className="add-candidate-wrapper">
+                <input
+                  type="text"
+                  placeholder="Candidate Info"
+                  ref={candidateInfoField}
+                  onChange={(e) => {
+                    setInfo(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+
             <button className="login-button button-primary" type="submit">
-              Create
+              Start Election
             </button>
           </form>
         )}
@@ -99,4 +137,4 @@ const Admin = (props: RouteProps) => {
   );
 };
 
-export default Admin;
+export default Start;
