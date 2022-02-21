@@ -2,9 +2,11 @@ import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router";
 
-type LayoutProps = {
+interface LayoutProps {
+  error: string;
+  success?: string;
   children: JSX.Element;
-};
+}
 
 const Login = (props: LayoutProps) => {
   const navigate = useNavigate();
@@ -24,7 +26,27 @@ const Login = (props: LayoutProps) => {
         <div className="title-small">the future of voting</div>
       </div>
 
-      <div className="right">{props.children}</div>
+      <div className="right">
+        {props.error !== "" ? (
+          <div className="error-message">
+            <span>
+              <i className="bi bi-exclamation-circle"></i>
+            </span>
+            <span>{props.error} ...</span>
+          </div>
+        ) : null}
+
+        {props.success && props.success !== "" ? (
+          <div className="success-message">
+            <span>
+              <i className="bi bi-check-circle"></i>
+            </span>
+            <span>{props.success} ...</span>
+          </div>
+        ) : null}
+
+        <div>{props.children}</div>
+      </div>
     </div>
   );
 };

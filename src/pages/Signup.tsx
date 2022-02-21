@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
-import { RouteProps } from "react-router";
 import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
 import axios from "../axios";
@@ -16,12 +15,15 @@ const schema = Yup.object().shape({
     .required(),
 });
 
-const Signup = (props: RouteProps): JSX.Element => {
+const Signup = (): JSX.Element => {
   const navigate = useNavigate();
+
+  const [error, setError] = useState<any>("");
+  const [success, setSuccess] = useState<string>("");
 
   return (
     <div>
-      <LoginLayout>
+      <LoginLayout error={error} success={success}>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -41,9 +43,15 @@ const Signup = (props: RouteProps): JSX.Element => {
                   password,
                 })
                 .then((res) => {
-                  console.log({ res });
+                  setError("");
+                  setSuccess("Signup Successful!");
                 })
-                .catch((error) => console.log({ error }));
+                .catch((err) => {
+                  let error: string = err.message;
+                  if (err?.response?.data)
+                    error = JSON.stringify(err.response.data);
+                  setError(error.slice(0, 50));
+                });
             }}
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (

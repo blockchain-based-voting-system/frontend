@@ -30,7 +30,30 @@
 
   .right {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .success-message,
+    .error-message {
+      box-sizing: border-box;
+      width: 400px;
+      padding: 20px 30px 20px 30px;
+      border-radius: 10px;
+      margin-bottom: 50px;
+      color: white;
+
+      span {
+        margin-right: 10px;
+      }
+    }
+
+    .success-message {
+      background-color: $theme-primary;
+    }
+
+    .error-message {
+      background-color: red;
+    }
   }
 }

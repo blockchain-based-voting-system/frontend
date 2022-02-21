@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import { RouteProps } from "react-router";
@@ -16,9 +16,11 @@ const Login = (props: RouteProps): JSX.Element => {
   const navigate = useNavigate();
   const authContext = useContext(AuthContext);
 
+  const [error, setError] = useState<any>("");
+
   return (
     <div>
-      <LoginLayout>
+      <LoginLayout error={error}>
         <div className="form-container">
           <Formik
             initialValues={{
@@ -32,7 +34,12 @@ const Login = (props: RouteProps): JSX.Element => {
                 .then((res) => {
                   authContext.authenticate(res.data.user, res.data.accessToken);
                 })
-                .catch((error) => console.log({ error }));
+                .catch((err) => {
+                  let error = err.message;
+                  if (err?.response?.data)
+                    error = JSON.stringify(err.response.data);
+                  setError(error);
+                });
             }}
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (
