@@ -1,7 +1,12 @@
 import React, { useRef, useState } from "react";
-import { RouteProps } from "react-router";
 import { Formik } from "formik";
 import axios from "../../axios";
+import * as yup from "yup";
+
+const schema = yup.object({
+  name: yup.string().min(3).required(),
+  description: yup.string().min(10).required(),
+});
 
 interface Candidate {
   name: string;
@@ -11,6 +16,7 @@ interface Candidate {
 const Start = () => {
   const [candidates, setCandidates] = useState<Array<Candidate>>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [info, setInfo] = useState<string>("");
 
@@ -19,19 +25,50 @@ const Start = () => {
 
   return (
     <div className="form-container">
+      {error !== "" ? <div className="error-message">{error}</div> : null}
+
       <Formik
         initialValues={{
           name: "",
           description: "",
         }}
+        validationSchema={schema}
         onSubmit={({ name, description }) => {
           setLoading(true);
-          axios
-            .post("/polls/start", { name, description, candidates })
-            .then((_) => {
-              window.location.reload();
-            })
-            .catch((error) => console.log({ error }));
+
+          let candidatesError = "";
+
+          if (candidates.length < 2) candidatesError = "Not Enough Candidates";
+
+          for (let i = 0; i < candidates.length; i++) {
+            const candidate = candidates[i];
+
+            if (candidate.name.length < 3) {
+              candidatesError = "invalid name " + candidate.name;
+              break;
+            }
+
+            if (candidate.info.length < 10) {
+              candidatesError = "invalid info for " + candidate.name;
+              break;
+            }
+          }
+
+          setError(candidatesError);
+
+          if (candidatesError === "") {
+            axios
+              .post("/polls/start", { name, description, candidates })
+              .then((_) => {
+                window.location.reload();
+              })
+              .catch((err) => {
+                let error = err.message;
+                if (err?.response?.data) error = err.response.data;
+                setError(error.slice(0, 50));
+                setLoading(false);
+              });
+          }
         }}
       >
         {({ errors, touched, getFieldProps, handleSubmit }) => (

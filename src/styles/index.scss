@@ -72,6 +72,28 @@ button,
   font-weight: 300;
 }
 
+.success-message,
+.error-message {
+  box-sizing: border-box;
+  width: 400px;
+  padding: 20px 30px 20px 30px;
+  border-radius: 10px;
+  margin-bottom: 50px;
+  color: white;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.success-message {
+  background-color: $theme-primary;
+}
+
+.error-message {
+  background-color: red;
+}
+
 @import "./layouts/Boxes.scss";
 
 @import "./form.scss";
@@ -85,3 +107,4 @@ button,
 @import "./layouts/Polls.scss";
 @import "./components/Features/Feature.scss";
 @import "./components/Polls/Chart.scss";
+@import "./components/Polls/Panel.scss";

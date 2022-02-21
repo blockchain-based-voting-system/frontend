@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
 import Chart from "../../components/Polls/Chart";
+import Panel from "../../components/Polls/Panel";
 
 const Polls = () => {
   const [loading, setLoading] = useState(true);
@@ -16,14 +17,9 @@ const Polls = () => {
   if (loading) return <div></div>;
 
   return (
-    <div className="polls-container">
-      <span className="title-small">{data.name}</span>
-      <span className="text-normal">{data.description}</span>
-
-      <div className="votes-wrapper">
-        <Chart votes={data.votes} />
-      </div>
-    </div>
+    <Panel name={data.name} description={data.description}>
+      <Chart votes={data.votes} />
+    </Panel>
   );
 };
 
