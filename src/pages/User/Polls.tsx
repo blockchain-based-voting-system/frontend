@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { RouteProps } from "react-router";
 import axios from "../../axios";
-import PollsLayout from "../../layouts/Polls";
+import Chart from "../../components/Polls/Chart";
+import Panel from "../../components/Polls/Panel";
 
-const User = (props: RouteProps) => {
-  const [polls, setPolls] = useState();
+const User = () => {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({ name: "", description: "", votes: {} });
 
   useEffect(() => {
-    axios.get("/polls/").then((res) => setPolls(res.data.polls));
+    axios.get("/polls/").then((res) => {
+      setData(res.data);
+      setLoading(false);
+    });
   }, []);
 
-  return <>{polls ? <PollsLayout link="/poll/" polls={polls} /> : null}</>;
+  if (loading) return <div></div>;
+
+  return (
+    <Panel name={data.name} description={data.description}>
+      <Chart votes={data.votes} />
+    </Panel>
+  );
 };
 
 export default User;

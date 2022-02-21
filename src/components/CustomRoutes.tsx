@@ -5,7 +5,6 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import { AuthContext } from "../contexts/Auth";
 import UserPollsPage from "../pages/User/Polls";
-import UserPollPage from "../pages/User/Poll";
 import HomePage from "../pages/Admin/Home";
 import ProfilePage from "../pages/User/Profile";
 import Default from "../layouts/Default";
@@ -50,7 +49,6 @@ export default () => {
           <Default menu={userMenu}>
             <Routes>
               <Route path="/" element={<UserPollsPage />} />
-              <Route path="/poll/:id" element={<UserPollPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Routes>
           </Default>
