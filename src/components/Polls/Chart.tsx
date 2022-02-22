@@ -1,10 +1,49 @@
-import React, { useEffect } from "react";
+import React from "react";
+import axios from "../../axios";
 
-const Chart = (votes: any) => {
+interface ChartProps {
+  votes: any;
+  enableVote?: boolean;
+  userId?: number;
+  userName?: string;
+}
+
+const Chart = (props: ChartProps) => {
+  const votes = props.votes;
+
+  const getButtons = () => {
+    const names = [];
+
+    const vote = (candidate: string) => {
+      axios
+        .post("/polls/vote", {
+          id: props.userId?.toString(),
+          name: props.userName,
+          candidate,
+        })
+        .then((_) => window.location.reload())
+        .catch((err) => console.log({ err }));
+    };
+
+    for (const name in votes) {
+      names.push(
+        <button
+          onClick={() => vote(name)}
+          key={name}
+          className="button-wrapper text-normal"
+        >
+          vote
+        </button>
+      );
+    }
+
+    return names;
+  };
+
   const getNames = () => {
     const names = [];
 
-    for (const name in votes.votes) {
+    for (const name in votes) {
       names.push(
         <div key={name} className="name-wrapper text-normal">
           {name}
@@ -18,8 +57,8 @@ const Chart = (votes: any) => {
   const getTotal = () => {
     let total = 0;
 
-    for (const name in votes.votes) {
-      total += parseInt(votes.votes[name]);
+    for (const name in votes) {
+      total += parseInt(votes[name]);
     }
 
     return total;
@@ -29,8 +68,8 @@ const Chart = (votes: any) => {
     const bars = [];
     const total = getTotal();
 
-    for (const name in votes.votes) {
-      const count = votes.votes[name];
+    for (const name in votes) {
+      const count = votes[name];
       bars.push(
         <div key={name} className="bar-wrapper">
           <div
@@ -47,7 +86,7 @@ const Chart = (votes: any) => {
               paddingTop: 10,
             }}
           >
-            {votes.votes[name]}
+            {votes[name]}
           </div>
         </div>
       );
@@ -60,6 +99,10 @@ const Chart = (votes: any) => {
     <div>
       <div className="bars-container">{getBars()}</div>
       <div className="names-wrapper">{getNames()}</div>
+
+      {props.enableVote ? (
+        <div className="buttons-wrapper">{getButtons()}</div>
+      ) : null}
     </div>
   );
 };

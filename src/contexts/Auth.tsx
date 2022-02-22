@@ -8,10 +8,13 @@ type ContextProps = {
 
 type User = {
   id: number;
+  name: string;
   admin: boolean;
 };
 
 export const AuthContext = createContext({
+  id: 0,
+  name: "",
   isAdmin: false,
   authenticated: false,
   accessToken: "",
@@ -24,13 +27,15 @@ export default (props: ContextProps): JSX.Element => {
   const navigate = useNavigate();
 
   const [authentication, setAuthentication] = useState({
+    id: 0,
+    name: "",
     isAdmin: false,
     authenticated: false,
     accessToken: "",
     loading: true,
   });
 
-  useEffect(() => {
+  const checkAuthentication = () => {
     axios
       .post("/auth/check")
       .then((res) => authenticate(res.data.user, res.data.accessToken, false))
@@ -38,6 +43,14 @@ export default (props: ContextProps): JSX.Element => {
         console.log(error);
         setAuthentication({ ...authentication, loading: false });
       });
+  };
+
+  useEffect(() => {
+    checkAuthentication();
+
+    const interval = setInterval(checkAuthentication, 5 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const authenticate = (
@@ -46,6 +59,8 @@ export default (props: ContextProps): JSX.Element => {
     redirect: boolean = true
   ) => {
     setAuthentication({
+      id: user.id,
+      name: user.name,
       isAdmin: user.admin,
       authenticated: true,
       accessToken: token,
@@ -59,6 +74,8 @@ export default (props: ContextProps): JSX.Element => {
     await axios.post("/auth/logout");
 
     setAuthentication({
+      id: 0,
+      name: "",
       isAdmin: false,
       authenticated: false,
       accessToken: "",
@@ -71,6 +88,8 @@ export default (props: ContextProps): JSX.Element => {
   return (
     <AuthContext.Provider
       value={{
+        id: authentication.id,
+        name: authentication.name,
         isAdmin: authentication.isAdmin,
         authenticated: authentication.authenticated,
         accessToken: authentication.accessToken,

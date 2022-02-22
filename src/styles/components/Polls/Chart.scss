@@ -17,6 +17,19 @@
   }
 }
 
+.buttons-wrapper {
+  min-width: 800px;
+  display: flex;
+  justify-content: center;
+
+  .button-wrapper {
+    margin-top: 20px;
+    // width: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
 .names-wrapper {
   min-width: 800px;
   display: flex;
