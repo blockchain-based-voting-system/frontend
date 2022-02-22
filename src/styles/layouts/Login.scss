@@ -11,18 +11,6 @@
     flex-direction: column;
     justify-content: center;
 
-    .back {
-      position: absolute;
-      left: 0px;
-      top: 50px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-
-      // .icon {
-      // }
-    }
-
     .title-green {
       color: $theme-primary;
     }

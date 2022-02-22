@@ -1,6 +1,6 @@
 import React from "react";
-import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router";
+import BackButton from "../components/Back";
 
 interface LayoutProps {
   error: string;
@@ -14,12 +14,7 @@ const Login = (props: LayoutProps) => {
   return (
     <div className="login-layout-wrapper">
       <div className="left">
-        <div onClick={() => navigate("/")} className="back title-small">
-          <span className="icon">
-            <IoIosArrowBack />
-          </span>
-          BACK
-        </div>
+        <BackButton call={() => navigate("/")} />
 
         <div className="title-large title-green">Blockchain Based</div>
         <div className="title-large title-green">Voting System</div>

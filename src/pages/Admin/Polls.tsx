@@ -14,11 +14,27 @@ const Polls = () => {
     });
   }, []);
 
+  const endElection = () => {
+    axios
+      .post("/polls/end")
+      .then((_) => window.location.reload())
+      .catch((err) => console.log({ err }));
+  };
+
   if (loading) return <div></div>;
 
   return (
     <Panel name={data.name} description={data.description}>
-      <Chart votes={data.votes} />
+      <>
+        <Chart votes={data.votes} />
+
+        <button
+          onClick={endElection}
+          className="end-election-button button-primary"
+        >
+          End Election
+        </button>
+      </>
     </Panel>
   );
 };

@@ -17,7 +17,10 @@ const Landing = () => {
           <Link to="/login">
             <button className="button-black">Login</button>
           </Link>
-          <button>View Votes</button>
+
+          <Link to="/view">
+            <button>View Votes</button>
+          </Link>
         </div>
       </div>
 
