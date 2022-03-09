@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import axios from "../../axios";
 
 type User = {
@@ -10,8 +9,6 @@ type User = {
 };
 
 const Users = () => {
-  const navigate = useNavigate();
-
   const [users, setUser] = useState<User[]>([]);
 
   useEffect(() => {
@@ -21,17 +18,56 @@ const Users = () => {
       .catch((error) => console.log({ error }));
   }, []);
 
+  const verifyUser = (id: number | string) => {
+    axios
+      .post("/users/verify", { userId: id })
+      .then((res) => {
+        console.log(res);
+        removeUserFromList(id);
+      })
+      .catch((error) => console.log({ error }));
+  };
+
+  const deleteUser = (id: number | string) => {
+    axios
+      .delete(`/users/delete/${id}`)
+      .then((res) => {
+        console.log(res);
+        removeUserFromList(id);
+      })
+      .catch((error) => console.log({ error }));
+  };
+
+  const removeUserFromList = (id: number | string) => {
+    const index = users.findIndex((user) => user.id == id);
+    const newList = [...users];
+    newList.splice(index, 1);
+    setUser(newList);
+  };
+
   if (users.length === 0) return <div></div>;
 
   return (
     <div className="users-wrapper">
       {users.map((user, index) => (
-        <div
-          key={index}
-          onClick={() => navigate(`/verify/${user.name}/${user.id}`)}
-          className="user-wrapper"
-        >
+        <div key={index} className="user-wrapper">
           {user.name}
+
+          <div>
+            <button
+              onClick={() => verifyUser(user.id)}
+              className="button-primary"
+            >
+              verify
+            </button>
+
+            <button
+              onClick={() => deleteUser(user.id)}
+              className="button-black"
+            >
+              delete
+            </button>
+          </div>
         </div>
       ))}
     </div>
