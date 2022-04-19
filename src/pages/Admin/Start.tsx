@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Formik } from "formik";
 import axios from "../../axios";
 import * as yup from "yup";
+import Button from "../../components/Button";
 
 const schema = yup.object({
   name: yup.string().min(3).required(),
@@ -164,9 +165,12 @@ const Start = () => {
               </div>
             </div>
 
-            <button className="login-button button-primary" type="submit">
-              Start Election
-            </button>
+            <Button
+              className="login-button button-primary"
+              type="submit"
+              text="Start Election"
+              loading={loading}
+            />
           </form>
         )}
       </Formik>

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "../../axios";
+import Button from "../../components/Button";
 
 interface ChartProps {
   votes: any;
@@ -10,6 +11,23 @@ interface ChartProps {
 
 const Chart = (props: ChartProps) => {
   const votes = props.votes;
+
+  /*
+    
+  initialAnimations = {
+    "Aabhas Dhaubanja": false,
+    "Gopal": false,
+    ...
+  } 
+  
+  */
+  const initialAnimations: any = {};
+
+  for (const vote in votes) {
+    initialAnimations[vote] = false;
+  }
+
+  const [animations, setAnimations] = useState(initialAnimations);
 
   const getButtons = () => {
     const names = [];
@@ -27,13 +45,23 @@ const Chart = (props: ChartProps) => {
 
     for (const name in votes) {
       names.push(
-        <button
-          onClick={() => vote(name)}
+        <Button
+          type="button"
+          text="vote"
+          onClick={() => {
+            vote(name);
+            setAnimations((prevAnimations: Object) => {
+              return {
+                ...prevAnimations,
+                [name]: true,
+              };
+            });
+          }}
           key={name}
           className="button-wrapper text-normal"
-        >
-          vote
-        </button>
+          loading={animations[name]}
+          alternate={true}
+        />
       );
     }
 

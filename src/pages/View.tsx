@@ -5,6 +5,8 @@ import Polls from "./Polls";
 import Result from "./Result";
 import Start from "./Start";
 import Back from "../components/Back";
+import Running from "../components/Polls/Running";
+import Finished from "../components/Polls/Finished";
 
 const View = (props: RouteProps): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -29,8 +31,18 @@ const View = (props: RouteProps): JSX.Element => {
 
   if (loading) return comp;
 
-  if (status === "finished") comp = <Result />;
-  if (status === "running") comp = <Polls />;
+  if (status === "finished")
+    comp = (
+      <Result>
+        <Finished />
+      </Result>
+    );
+  if (status === "running")
+    comp = (
+      <Polls>
+        <Running />
+      </Polls>
+    );
   if (status === "not-started") comp = <Start />;
 
   return (

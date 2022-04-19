@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
+import Button from "../../components/Button";
 import Chart from "../../components/Polls/Chart";
 import Panel from "../../components/Polls/Panel";
 
 const Result = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({ name: "", description: "", votes: {} });
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
     axios.get("/polls/").then((res) => {
@@ -15,10 +17,15 @@ const Result = () => {
   }, []);
 
   const resetElection = () => {
+    setSubmitting(true);
+
     axios
       .post("/polls/reset")
       .then((_) => window.location.reload())
-      .catch((err) => console.log({ err }));
+      .catch((err) => {
+        console.error(err);
+        setSubmitting(false);
+      });
   };
 
   if (loading) return <div></div>;
@@ -28,12 +35,13 @@ const Result = () => {
       <>
         <Chart votes={data.votes} />
 
-        <button
-          onClick={resetElection}
+        <Button
+          type="button"
+          text="RESET ELECTION"
           className="end-election-button button-primary"
-        >
-          Reset Election
-        </button>
+          onClick={resetElection}
+          loading={submitting}
+        />
       </>
     </Panel>
   );

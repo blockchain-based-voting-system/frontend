@@ -19,7 +19,7 @@ export const AuthContext = createContext({
   authenticated: false,
   accessToken: "",
   loading: true,
-  authenticate: (user: User, token: string) => {},
+  authenticate: (user: User, token: string, refreshToken: string) => {},
   logout: () => {},
 });
 
@@ -36,9 +36,26 @@ export default (props: ContextProps): JSX.Element => {
   });
 
   const checkAuthentication = () => {
+    const refreshToken = localStorage.getItem("rf");
+
     axios
-      .post("/auth/check")
-      .then((res) => authenticate(res.data.user, res.data.accessToken, false))
+      .post(
+        "/auth/check",
+        {},
+        {
+          headers: {
+            refreshToken: refreshToken ? refreshToken : false,
+          },
+        }
+      )
+      .then((res) =>
+        authenticate(
+          res.data.user,
+          res.data.accessToken,
+          res.data.newRefreshToken,
+          false
+        )
+      )
       .catch((error) => {
         console.log(error);
         setAuthentication({ ...authentication, loading: false });
@@ -56,8 +73,11 @@ export default (props: ContextProps): JSX.Element => {
   const authenticate = (
     user: User,
     token: string,
+    refreshToken: string,
     redirect: boolean = true
   ) => {
+    localStorage.setItem("rf", refreshToken);
+
     setAuthentication({
       id: user.id,
       name: user.name,
@@ -71,7 +91,8 @@ export default (props: ContextProps): JSX.Element => {
   };
 
   const logout = async () => {
-    await axios.post("/auth/logout");
+    // await axios.post("/auth/logout");
+    localStorage.removeItem("rf");
 
     setAuthentication({
       id: 0,

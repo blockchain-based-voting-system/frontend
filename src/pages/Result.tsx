@@ -3,7 +3,7 @@ import axios from "../axios";
 import Chart from "../components/Polls/Chart";
 import Panel from "../components/Polls/Panel";
 
-const Result = () => {
+const Result = (props: any) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({ name: "", description: "", votes: {} });
 
@@ -18,7 +18,10 @@ const Result = () => {
 
   return (
     <Panel name={data.name} description={data.description}>
-      <Chart votes={data.votes} />
+      <>
+        {props.children}
+        <Chart votes={data.votes} />
+      </>
     </Panel>
   );
 };

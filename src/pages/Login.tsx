@@ -6,6 +6,7 @@ import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
 import axios from "../axios";
 import { AuthContext } from "../contexts/Auth";
+import Button from "../components/Button";
 
 const schema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -17,6 +18,7 @@ const Login = (props: RouteProps): JSX.Element => {
   const authContext = useContext(AuthContext);
 
   const [error, setError] = useState<any>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <div>
@@ -29,17 +31,24 @@ const Login = (props: RouteProps): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={(values) => {
-              axios
-                .post("/auth/login", { ...values })
-                .then((res) => {
-                  authContext.authenticate(res.data.user, res.data.accessToken);
-                })
-                .catch((err) => {
-                  let error = err.message;
-                  if (err?.response?.data)
-                    error = JSON.stringify(err.response.data);
-                  setError(error);
-                });
+              if (!loading) {
+                axios
+                  .post("/auth/login", { ...values })
+                  .then((res) => {
+                    authContext.authenticate(
+                      res.data.user,
+                      res.data.accessToken,
+                      res.data.refreshToken
+                    );
+                  })
+                  .catch((err) => {
+                    let error = err.message;
+                    if (err?.response?.data)
+                      error = JSON.stringify(err.response.data);
+                    setError(error);
+                    setLoading(false);
+                  });
+              }
             }}
           >
             {({ errors, touched, getFieldProps, handleSubmit }) => (
@@ -70,9 +79,12 @@ const Login = (props: RouteProps): JSX.Element => {
                   </div>
                 </div>
 
-                <button className="login-button button-primary" type="submit">
-                  Login
-                </button>
+                <Button
+                  className="login-button button-primary"
+                  text="Login"
+                  type="submit"
+                  loading={loading}
+                />
               </form>
             )}
           </Formik>

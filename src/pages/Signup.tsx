@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import LoginLayout from "../layouts/Login";
 import * as Yup from "yup";
 import axios from "../axios";
+import Button from "../components/Button";
 
 const schema = Yup.object().shape({
   name: Yup.string().min(3).required(),
@@ -20,6 +21,7 @@ const Signup = (): JSX.Element => {
 
   const [error, setError] = useState<any>("");
   const [success, setSuccess] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <div>
@@ -34,7 +36,12 @@ const Signup = (): JSX.Element => {
               confirm: "",
             }}
             validationSchema={schema}
-            onSubmit={({ name, email, citizenshipNumber, password }) => {
+            onSubmit={(
+              { name, email, citizenshipNumber, password },
+              { resetForm }
+            ) => {
+              setLoading(true);
+
               axios
                 .post("/auth/signup", {
                   name,
@@ -45,12 +52,15 @@ const Signup = (): JSX.Element => {
                 .then((res) => {
                   setError("");
                   setSuccess("Signup Successful!");
+                  resetForm();
+                  setLoading(false);
                 })
                 .catch((err) => {
                   let error: string = err.message;
                   if (err?.response?.data)
                     error = JSON.stringify(err.response.data);
                   setError(error.slice(0, 50));
+                  setLoading(false);
                 });
             }}
           >
@@ -120,9 +130,12 @@ const Signup = (): JSX.Element => {
                   </div>
                 </div>
 
-                <button className="button-primary" type="submit">
-                  Create a New Account
-                </button>
+                <Button
+                  className="button-primary"
+                  text="Create a New Account"
+                  type="submit"
+                  loading={loading}
+                />
               </form>
             )}
           </Formik>

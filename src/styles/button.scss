@@ -1,0 +1,52 @@
+@keyframes fadeInOut {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  50% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.loading-animation-wrapper {
+  height: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .loading-animation-dot {
+    background-color: white;
+    height: 10px;
+    width: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 100px;
+    visibility: hidden;
+
+    &:nth-child(1) {
+      animation: fadeInOut 1s infinite;
+    }
+
+    &:nth-child(2) {
+      animation: fadeInOut 1s infinite 0.333333333333334s;
+    }
+
+    &:nth-child(3) {
+      animation: fadeInOut 1s infinite 0.66666666666667s;
+    }
+  }
+
+  .loading-animation-dot.loading-animation-alternate {
+    background-color: $theme-black;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
