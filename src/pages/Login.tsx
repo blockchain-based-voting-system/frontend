@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import { RouteProps } from "react-router";
@@ -18,7 +18,7 @@ const Login = (props: RouteProps): JSX.Element => {
   const authContext = useContext(AuthContext);
 
   const [error, setError] = useState<any>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const loading = useRef<boolean>(false);
 
   return (
     <div>
@@ -31,7 +31,9 @@ const Login = (props: RouteProps): JSX.Element => {
             }}
             validationSchema={schema}
             onSubmit={(values) => {
-              if (!loading) {
+              if (!loading.current) {
+                loading.current = true;
+
                 axios
                   .post("/auth/login", { ...values })
                   .then((res) => {
@@ -46,7 +48,7 @@ const Login = (props: RouteProps): JSX.Element => {
                     if (err?.response?.data)
                       error = JSON.stringify(err.response.data);
                     setError(error);
-                    setLoading(false);
+                    loading.current = false;
                   });
               }
             }}
@@ -83,7 +85,7 @@ const Login = (props: RouteProps): JSX.Element => {
                   className="login-button button-primary"
                   text="Login"
                   type="submit"
-                  loading={loading}
+                  loading={loading.current}
                 />
               </form>
             )}

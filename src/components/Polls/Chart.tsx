@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "../../axios";
 import Button from "../../components/Button";
 
@@ -28,11 +28,14 @@ const Chart = (props: ChartProps) => {
   }
 
   const [animations, setAnimations] = useState(initialAnimations);
+  const mutex = useRef<boolean>(false);
 
   const getButtons = () => {
     const names = [];
 
-    const vote = (candidate: string) => {
+    const vote = async (candidate: string) => {
+      mutex.current = true;
+
       axios
         .post("/polls/vote", {
           id: props.userId?.toString(),
@@ -40,7 +43,8 @@ const Chart = (props: ChartProps) => {
           candidate,
         })
         .then((_) => window.location.reload())
-        .catch((err) => console.log({ err }));
+        .catch((err) => console.log({ err }))
+        .finally(() => (mutex.current = false));
     };
 
     for (const name in votes) {
@@ -49,13 +53,15 @@ const Chart = (props: ChartProps) => {
           type="button"
           text="vote"
           onClick={() => {
-            vote(name);
-            setAnimations((prevAnimations: Object) => {
-              return {
-                ...prevAnimations,
-                [name]: true,
-              };
-            });
+            if (window.confirm("Are you sure?") && mutex.current === false) {
+              setAnimations((prevAnimations: Object) => {
+                return {
+                  ...prevAnimations,
+                  [name]: true,
+                };
+              });
+              vote(name);
+            }
           }}
           key={name}
           className="button-wrapper text-normal"
